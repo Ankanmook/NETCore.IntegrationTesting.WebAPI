@@ -16,11 +16,6 @@ namespace NETCore.IntegrationTesting.WebAPI.Data
             _cloudDatabase = cloudDatabase;
         }
 
-        public Task<AddProductResult> AddProductAsync(Product product)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<Product> GetByIdAsync(Guid id)
         {
             throw new NotImplementedException();
