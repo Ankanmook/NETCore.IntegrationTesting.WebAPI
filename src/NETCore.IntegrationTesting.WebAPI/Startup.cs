@@ -28,6 +28,7 @@ namespace NETCore.IntegrationTesting.WebAPI
         {
 
             services.AddControllers();
+            services.AddHealthChecks();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "NETCore.IntegrationTesting.WebAPI", Version = "v1" });
@@ -52,6 +53,7 @@ namespace NETCore.IntegrationTesting.WebAPI
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHealthChecks("/healthcheck");
                 endpoints.MapControllers();
             });
         }
