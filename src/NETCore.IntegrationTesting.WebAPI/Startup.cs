@@ -11,7 +11,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using NETCore.IntegrationTesting.MockCloudSdk;
 using NETCore.IntegrationTesting.WebAPI.Data;
+using NETCore.IntegrationTesting.WebAPI.External.Database;
+using NETCore.IntegrationTesting.WebAPI.Stock;
 
 namespace NETCore.IntegrationTesting.WebAPI
 {
@@ -36,6 +39,11 @@ namespace NETCore.IntegrationTesting.WebAPI
             });
 
             services.AddSingleton<ICategoryProvider, CategoryProvider>();
+
+            services.AddDatabaseClient();
+            services.AddSingleton<ICloudDatabase, CloudDatabase>();
+            services.AddSingleton<IProductDataRepository, CloudBasedProductDataRepository>();
+            services.AddSingleton<IStockCalculator, StockCalculator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
