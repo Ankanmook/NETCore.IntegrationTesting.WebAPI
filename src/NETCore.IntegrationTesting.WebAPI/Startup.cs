@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using NETCore.IntegrationTesting.WebAPI.Data;
 
 namespace NETCore.IntegrationTesting.WebAPI
 {
@@ -33,6 +34,8 @@ namespace NETCore.IntegrationTesting.WebAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "NETCore.IntegrationTesting.WebAPI", Version = "v1" });
             });
+
+            services.AddSingleton<ICategoryProvider, CategoryProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
