@@ -25,9 +25,4 @@
     <ProjectReference Include="..\..\src\NETCore.IntegrationTesting.WebAPI\NETCore.IntegrationTesting.WebAPI.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controller\" />
-    <Folder Include="Model\" />
-  </ItemGroup>
-
 </Project>

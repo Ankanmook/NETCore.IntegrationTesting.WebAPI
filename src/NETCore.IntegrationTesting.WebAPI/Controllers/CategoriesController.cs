@@ -1,39 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using NETCore.IntegrationTesting.WebAPI.Data;
+using NETCore.IntegrationTesting.WebAPI.Models;
 
 namespace NETCore.IntegrationTesting.WebAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class CategoriesController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
+        private readonly ICategoryProvider _categoryProvider;
 
-        private readonly ILogger<CategoriesController> _logger;
-
-        public CategoriesController(ILogger<CategoriesController> logger)
-        {
-            _logger = logger;
-        }
+        public CategoriesController(ICategoryProvider categoryProvider) =>
+            _categoryProvider = categoryProvider;
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ResponseCache(Duration = 300)]
+        public ActionResult<CategoriesOutputModel> GetAll()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+            var allowedCategories = _categoryProvider.AllowedCategories();
+
+            return new CategoriesOutputModel(allowedCategories);
         }
     }
 }
