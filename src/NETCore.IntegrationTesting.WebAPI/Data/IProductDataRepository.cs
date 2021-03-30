@@ -13,5 +13,7 @@ namespace NETCore.IntegrationTesting.WebAPI.Data
 
         Task<IReadOnlyCollection<Product>> GetProductsForCategoryAsync(string category);
 
+        Task<AddProductResult> AddProductAsync(Product product);
+
     }
 }

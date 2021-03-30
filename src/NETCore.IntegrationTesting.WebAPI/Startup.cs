@@ -43,6 +43,8 @@ namespace NETCore.IntegrationTesting.WebAPI
             services.AddDatabaseClient();
             services.AddSingleton<ICloudDatabase, CloudDatabase>();
             services.AddSingleton<IProductDataRepository, CloudBasedProductDataRepository>();
+            services.AddSingleton<IProductValidator, ProductValidator>();
+            services.AddSingleton<ICategoryProvider, CategoryProvider>();
             services.AddSingleton<IStockCalculator, StockCalculator>();
         }
 
