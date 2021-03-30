@@ -13,7 +13,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using NETCore.IntegrationTesting.MockCloudSdk;
 using NETCore.IntegrationTesting.WebAPI.Data;
+using NETCore.IntegrationTesting.WebAPI.Diagnostics;
 using NETCore.IntegrationTesting.WebAPI.External.Database;
+using NETCore.IntegrationTesting.WebAPI.Middleware;
 using NETCore.IntegrationTesting.WebAPI.Stock;
 
 namespace NETCore.IntegrationTesting.WebAPI
@@ -38,10 +40,12 @@ namespace NETCore.IntegrationTesting.WebAPI
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "NETCore.IntegrationTesting.WebAPI", Version = "v1" });
             });
 
-            services.AddSingleton<ICategoryProvider, CategoryProvider>();
-
             services.AddDatabaseClient();
             services.AddSingleton<ICloudDatabase, CloudDatabase>();
+
+            
+            services.AddSingleton<IMetricRecorder, MetricRecorder>();
+
             services.AddSingleton<IProductDataRepository, CloudBasedProductDataRepository>();
             services.AddSingleton<IProductValidator, ProductValidator>();
             services.AddSingleton<ICategoryProvider, CategoryProvider>();
@@ -59,6 +63,8 @@ namespace NETCore.IntegrationTesting.WebAPI
             }
 
             app.UseHttpsRedirection();
+
+            app.UseRequestMetrics();
 
             app.UseRouting();
 

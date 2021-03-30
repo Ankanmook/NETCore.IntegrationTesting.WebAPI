@@ -13,6 +13,8 @@ namespace NETCore.IntegrationTesting.WebAPI.IntegrationTests.Fakes
 
         public List<ProductDto> Products { get; set; }
 
+        public bool ShouldThrow { get; set; }
+
         public FakeCloudDatabase(IReadOnlyCollection<ProductDto> products = null)
         {
             ReplaceCustomProducts(products);
