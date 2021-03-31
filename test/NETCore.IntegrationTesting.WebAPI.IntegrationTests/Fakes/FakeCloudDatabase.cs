@@ -34,6 +34,8 @@ namespace NETCore.IntegrationTesting.WebAPI.IntegrationTests.Fakes
 
         public Task<IReadOnlyCollection<ProductDto>> GetAllAsync()
         {
+            if (ShouldThrow)
+                throw new Exception("Test exception!");
             return Task.FromResult(Products as IReadOnlyCollection<ProductDto>);
         }
 
