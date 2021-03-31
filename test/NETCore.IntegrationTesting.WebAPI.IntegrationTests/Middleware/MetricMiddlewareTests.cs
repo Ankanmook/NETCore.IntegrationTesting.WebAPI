@@ -73,10 +73,9 @@ namespace NETCore.IntegrationTesting.WebAPI.IntegrationTests.Middleware
 
             var metric1 = metricsRecorder.Metrics.FirstOrDefault();            
 
-            //Assert.Equal("unhandled-exception", metric1.Name);
+            Assert.Equal("unhandled-exception", metric1.Name);
             Assert.Equal(1, metric1.Increment);
-            //Assert.Equal($"correlation_id:{correlationId}", metric1.Tags[0]);
-            Assert.Equal($"status_code:200", metric1.Tags[0]);
+            Assert.Equal($"correlation_id:{correlationId}", metric1.Tags[0]);
             Assert.Equal($"user_agent:{userAgent}", metric1.Tags[1]);
         }
     }
